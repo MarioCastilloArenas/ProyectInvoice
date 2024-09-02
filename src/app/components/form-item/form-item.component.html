@@ -1,0 +1,72 @@
+<form class="w-50" (ngSubmit)="onSubmit(itemform)" #itemform="ngForm"> <!-- Aquí cambiamos a minúsculas en todas partes -->
+
+    <input name="product" 
+    placeholder="Producto"
+    class="form-control m-3"
+    [(ngModel)]="item.product"
+    required minlength="5"
+    #product="ngModel">  <!-- los requires validan en este caso mínimo 5 caracteres -->
+
+    @if (product.invalid && (product.dirty || product.touched)){ <!-- Si el producto es inválido Y dirty o touched -->
+        @if (product.errors!['required']) {
+            <div class="text-danger m-3">
+                Nombre del producto requerido
+            </div>
+        }
+
+        @if (product.errors!['minlength']) {
+            <div class="text-danger m-3">
+                Nombre del producto debe tener al menos 5 caracteres
+            </div>
+        }
+    }
+
+    <input name="price" 
+    type="number"
+    placeholder="$-€"
+    class="form-control m-3"
+    [(ngModel)]="item.price"
+    required min="10"
+    #price="ngModel">  <!-- los requires validan en este caso mínimo un 10 -->
+
+    @if (price.invalid && (price.dirty || price.touched)){ <!-- Si el price es inválido Y dirty o touched -->
+        @if (price.errors!['required']) {
+            <div class="text-danger m-3">
+                Precio del producto requerido
+            </div>
+        }
+
+        @if (price.errors!['min']) {
+            <div class="text-danger m-3">
+                Precio del producto debe ser al menos 10 uds
+            </div>
+        }
+    }
+
+    <input name="quantity" 
+    type="number"
+    placeholder="Cantidad"
+    class="form-control m-3"
+    [(ngModel)]="item.quantity"
+    required min="1"
+    #quantity="ngModel"> <!-- los requires validan en este caso mínimo un 1 -->
+
+    @if (quantity.invalid && (quantity.dirty || quantity.touched)){ <!-- Si el quantity es inválido Y dirty o touched -->
+        @if (quantity.errors!['required']) {
+            <div class="text-danger m-3">
+                Cantidad del producto requerida
+            </div>
+        }
+
+        @if (quantity.errors!['min']) {
+            <div class="text-danger m-3">
+                Cantidad del producto debe ser al menos 1 uds
+            </div>
+        }
+    }
+
+    <button class="btn btn-primary m-3" [disabled]="itemform.form.invalid"> <!-- Se deshabilita si itemForm es inválido -->
+        Nuevo Item
+    </button>
+
+</form>
